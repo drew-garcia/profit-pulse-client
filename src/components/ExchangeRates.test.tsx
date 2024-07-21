@@ -1,7 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import { MockedProvider } from '@apollo/client/testing'
-import ExchangeRates from './ExchangeRates'
-import { EXCHANGE_RATES } from './ExchangeRates'
+import React from 'react';
+import {render, screen, waitFor} from '@testing-library/react';
+import {MockedProvider} from '@apollo/client/testing';
+import {EXCHANGE_RATES, ExchangeRates} from './ExchangeRates';
 
 const mocks = [
     {
@@ -11,8 +11,8 @@ const mocks = [
         result: {
             data: {
                 rates: [
-                    { currency: 'USD', rate: '1.00' },
-                    { currency: 'EUR', rate: '0.90' },
+                    {currency: 'USD', rate: '1.00'},
+                    {currency: 'EUR', rate: '0.90'},
                 ],
             },
         },
@@ -22,7 +22,7 @@ const mocks = [
 test('renders exchange rates', async () => {
     render(
         <MockedProvider mocks={mocks} addTypename={false}>
-            <ExchangeRates />
+            <ExchangeRates/>
         </MockedProvider>
     );
 

@@ -10,7 +10,7 @@ export const EXCHANGE_RATES = gql`
   }
 `;
 
-const ExchangeRates: React.FC = () => {
+export const ExchangeRates: React.FC = () => {
     const { loading, error, data } = useQuery(EXCHANGE_RATES);
 
     if (loading) return <p>Loading...</p>;
@@ -29,5 +29,3 @@ const ExchangeRates: React.FC = () => {
         </div>
     );
 };
-
-export default ExchangeRates;

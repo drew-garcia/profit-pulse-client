@@ -2,8 +2,9 @@ import CandlestickChartIcon from '@mui/icons-material/CandlestickChart';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import Login from './components/Login/Login';
+import PrivateRoute from './utils/PrivateRoute';
 
 const defaultPage = (
   <Container fixed className='h-screen'>
@@ -13,12 +14,18 @@ const defaultPage = (
   </Container>
 );
 
+const dashboard = <h1>Dashboard</h1>;
+
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={defaultPage} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Login />} />{' '}
+        <Route
+          path='/dashboard'
+          element={<PrivateRoute element={dashboard} fallback={<Navigate to='/login' />} />}
+        />
+        <Route path='/' element={<PrivateRoute element={dashboard} fallback={defaultPage} />} />
       </Routes>
     </Router>
   );

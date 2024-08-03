@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import React from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import Login from './components/Login/Login';
+import FileUpload from './components/FileUpload/FileUpload';
 import PrivateRoute from './utils/PrivateRoute';
 
 const defaultPage = (
@@ -24,6 +25,10 @@ function App() {
         <Route
           path='/dashboard'
           element={<PrivateRoute element={dashboard} fallback={<Navigate to='/login' />} />}
+        />
+        <Route
+          path='/file-upload'
+          element={<PrivateRoute element={<FileUpload />} fallback={<Navigate to='/login' />} />}
         />
         <Route path='/' element={<PrivateRoute element={dashboard} fallback={defaultPage} />} />
       </Routes>

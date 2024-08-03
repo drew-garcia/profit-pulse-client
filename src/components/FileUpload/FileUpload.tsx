@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import UPLOAD_TRADE from './uploadTradeMutation';
 
 type Trade = {
@@ -11,13 +12,17 @@ type Trade = {
   tradeDate: string;
 };
 
-const parseCSV = (text: string) => {
+const parseCSV = (text: string): Trade[] => {
   const lines = text.split('\n');
   const headers = lines[0].split(',');
   return lines.slice(1).map((line) => {
     const values = line.split(',');
     return headers.reduce((acc, header, index) => {
-      return { ...acc, [header.trim()]: values[index].trim() };
+      let value: string | number = values[index].trim();
+      if (header.trim() === 'quantity' || header.trim() === 'price') {
+        value = Number(value);
+      }
+      return { ...acc, [header.trim()]: value };
     }, {} as Trade);
   });
 };
@@ -44,10 +49,22 @@ function FileUpload() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type='file' accept='.csv' onChange={handleFileChange} />
-      <button type='submit'>Upload</button>
-    </form>
+    <Box
+      component='form'
+      onSubmit={handleSubmit}
+      sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+    >
+      <Typography variant='h6'>Upload CSV file:</Typography>
+      <TextField
+        variant='outlined'
+        type='file'
+        inputProps={{ accept: '.csv', 'aria-label': 'upload csv file' }}
+        onChange={handleFileChange}
+      />
+      <Button variant='contained' color='primary' type='submit'>
+        Upload
+      </Button>
+    </Box>
   );
 }
 

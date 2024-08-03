@@ -50,7 +50,7 @@ test('uploads a file and calls the mutation', async () => {
     { type: 'text/csv' },
   );
 
-  const input = screen.getByLabelText(/file/i);
+  const input = screen.getByLabelText(/upload csv file/i);
   await userEvent.upload(input, file);
 
   fireEvent.submit(screen.getByRole('button'));
